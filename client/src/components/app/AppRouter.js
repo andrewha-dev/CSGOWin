@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import './App.css';
-
-class App extends Component {
+import React, { Component } from 'react'
+import './AppRouter.css'
+class AppRouter extends Component {
   onHandleLogin() {
     const popupWindow = window.open(process.env.REACT_APP_API_URL + '/auth/steam', '_blank', 'width=800, height=600');
     if (window.focus) popupWindow.focus();
-    console.log("" + process.env.REACT_APP_API_URL + '/auth/steam')
   }
 
   componentDidMount() {
@@ -16,6 +14,7 @@ class App extends Component {
 
       if (ok) {
         localStorage.setItem('authToken', token);
+        //Use redux/state event handler here to say that user is signed in
         console.log(token);
       }
     });
@@ -24,6 +23,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <p>Move steam login to Modal and button in Nav, put game logic here</p>
         <h1>Steam JWT Login</h1>
         <img
           onClick={this.onHandleLogin}
@@ -33,6 +33,13 @@ class App extends Component {
       </div>
     );
   }
+
+// render() {
+//     return (
+//         <p>Test from home</p>
+//     )
+// }
+
 }
 
-export default App;
+export default AppRouter

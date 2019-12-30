@@ -6,9 +6,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Should find better way to fix this, give whole app dark theme */
+  background-color: #34455C !important;
+  min-height: 100%;
+  
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+.MuiPaper-root {
+  background-color: #182328 !important;
+  color: white !important
+}
+
+.MuiAppBar-colorPrimary {
+  background-color: #171a21 !important;
 }
