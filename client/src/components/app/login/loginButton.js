@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import './AppRouter.css'
-class AppRouter extends Component {
+import './loginButton.css'
+class LoginButton extends Component {
   onHandleLogin() {
     const popupWindow = window.open(process.env.REACT_APP_API_URL + '/auth/steam', '_blank', 'width=800, height=600');
     if (window.focus) popupWindow.focus();
@@ -22,9 +22,7 @@ class AppRouter extends Component {
 
   render() {
     return (
-      <div className="App">
-        <p>Move steam login to Modal and button in Nav, put game logic here</p>
-        <h1>Steam JWT Login</h1>
+      <div className="signIn">
         <img
           onClick={this.onHandleLogin}
           src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"
@@ -42,4 +40,4 @@ class AppRouter extends Component {
 
 }
 
-export default AppRouter
+export default LoginButton

@@ -18,9 +18,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Button from '@material-ui/core/Button';
-import AppRouter from './AppRouter';
+import LoginButton from './login/loginButton';
 
-import './App.css'
+import './app.css'
 
 const drawerWidth = 240;
 
@@ -127,7 +127,7 @@ export default function MiniDrawer() {
               </Typography>
             </div>
             <div className={'profileFloat'}>
-              <Button variant='contained'>Sign In</Button>
+              <LoginButton/>
             </div>
           </div>
         </Toolbar>
@@ -174,7 +174,6 @@ export default function MiniDrawer() {
       
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <AppRouter/>
       </main>
     </div>
   );
