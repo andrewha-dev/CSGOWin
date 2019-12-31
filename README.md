@@ -1,10 +1,14 @@
 # CSGOWIN - A website to gamble your skins without actually gambling your skins
 # Made using MERN Steam Login JWT Repository
 
+- Updated README coming soon. I will add .env example files in new pr
 
-# MERN Steam Login JWT
+
+<!-- # MERN Steam Login JWT
 
 This is an example of Steam Authentication using JWT and MERN Stack (MongoDB, Express, React and Node.js).
+
+-->
 
 # How to run
 
