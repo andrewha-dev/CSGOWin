@@ -1,0 +1,16 @@
+.MuiSvgIcon-root {
+    color: white
+}
+
+.topNavDiv {
+    width: 100%;
+}
+
+.logoText {
+    display: inline-block;
+}
+
+.profileFloat {
+    display: block;
+    float: right;
+}
