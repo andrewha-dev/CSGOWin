@@ -18,5 +18,5 @@ app.set('views', path.join(__dirname, '/views'));
 
 require('./config/steam')(app);
 
-app.use('/auth', require('./routes/auth.routes'));
+app.use('/auth', require('./routes/authentication/auth.routes'));
 app.listen(PORT, () => console.log(`Server listening on port ${PORT} 🚀`));
