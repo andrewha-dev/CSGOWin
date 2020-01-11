@@ -14,7 +14,7 @@ This is an example of Steam Authentication using JWT and MERN Stack (MongoDB, Ex
 
 - Clone the repository
 - Run `npm install` in both `api` and `client` folders.
-- Rename `.env.example` and replace with your own data in both `api` and `client` folders.
+- Rename `env` to `.env` and replace with your own data in both `api` and `client` folders.
 - Run `npm start` in both `api` and `client` folders.
 
 ## Behaviour
