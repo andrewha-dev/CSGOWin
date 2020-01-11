@@ -9,6 +9,12 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String
+  },
+  balance: {
+    type: Number
+  },
+  isAdmin: {
+    type: Boolean
   }
 });
 
