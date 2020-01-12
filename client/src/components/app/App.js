@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -17,9 +17,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import LoginButton from './login/loginButton';
+import LoginButton from './nav/login/loginButton';
+import UserMenu from './nav/userMenu/userMenu'
 
 import './app.css'
+
+
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -85,9 +88,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function App() {
+  const isAuthorizedAPI = process.env.REACT_APP_API_URL + '/auth/isAuthenticated';
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [authenticated, isAuthenticated] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const handleLoadingFinished = () => {
+    setLoading(false);
+  }
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -95,6 +105,48 @@ export default function App() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const setAuthenticated = (val) => {
+    isAuthenticated(val)
+  }
+
+  const setAuthenticatedTrue = () => {
+    isAuthenticated(true);
+  }
+
+  useEffect(() => {
+    let authToken = localStorage.getItem('authToken');
+    fetch(isAuthorizedAPI, {
+      method: 'GET',
+      headers: {
+          'Authorization': authToken,
+          'Content-Type': 'application/json'
+      }
+  }).then(response => {
+    if (response.ok) {
+      response.json().then(jsonVal=> {
+        if (jsonVal['isAuthenticated'])
+          setAuthenticatedTrue();
+        else
+          setAuthenticated(false);
+      })
+    }
+  }).catch(err => {
+    console.log(err);
+  })
+    handleLoadingFinished();
+  }, []);
+
+  const Profile = () => {
+    if (!loading) {
+      if (authenticated)
+        return <UserMenu/>
+      else
+        return <LoginButton view={setAuthenticatedTrue.bind(this)}/>
+    }
+    return <span/>;
+  }
+
 
   return (
     <div className={classes.root}>
@@ -124,7 +176,7 @@ export default function App() {
               </Typography>
             </div>
             <div className={'profileFloat'}>
-              <LoginButton/>
+              <Profile/>
             </div>
           </div>
         </Toolbar>

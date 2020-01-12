@@ -4,10 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^6.1.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-redis": "^5.0.11",
     "mongoose": "^5.7.5",
     "passport": "^0.4.0",
     "passport-steam": "^1.0.10"

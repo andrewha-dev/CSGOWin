@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './loginButton.css'
 class LoginButton extends Component {
+
   onHandleLogin() {
     const popupWindow = window.open(process.env.REACT_APP_API_URL + '/auth/steam', '_blank', 'width=800, height=600');
     if (window.focus) popupWindow.focus();
@@ -14,8 +15,8 @@ class LoginButton extends Component {
 
       if (ok) {
         localStorage.setItem('authToken', token);
-        //Use redux/state event handler here to say that user is signed in
         console.log(token);
+        this.props.view();
       }
     });
   }
