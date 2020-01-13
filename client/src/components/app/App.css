@@ -8,9 +8,11 @@
 
 .logoText {
     display: inline-block;
+    margin-top: 1.2%;
 }
 
 .profileFloat {
     display: block;
     float: right;
+    margin-top: 0.75%;
 }

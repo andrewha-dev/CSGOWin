@@ -1,0 +1,16 @@
+.profileDiv:hover {
+    cursor: pointer !important;
+}
+
+.profileDiv {
+    display: inline;
+}
+
+.username {
+    margin-left: 0.75rem;
+    cursor: pointer !important;
+}
+
+.mainDiv:hover {
+    background-color: white;
+}

@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -9,6 +8,7 @@ import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar'
 
+import './userMenu.css'
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -60,17 +60,16 @@ export default function UserMenu() {
   }, [open]);
 
   return (
-    <div className={classes.root}>
-      <div style={{"display":"inline-block"}}>
-        <Button
-          ref={anchorRef}
-          aria-controls={open ? 'menu-list-grow' : undefined}
-          aria-haspopup="true"
-          onClick={handleToggle}
-        >
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
-        Steam Username
-        </Button>
+    <div className={(classes.root)} 
+      ref={anchorRef}
+      aria-controls={open ? 'menu-list-grow' : undefined}
+      aria-haspopup="true"
+      onClick={handleToggle}>
+      <div>
+      <div className='profileDiv'>
+        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={(classes.large, 'profileDiv')} />
+      </div>
+        
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
           {({ TransitionProps, placement }) => (
             <Grow
@@ -80,9 +79,9 @@ export default function UserMenu() {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={(handleClose, logout)}>Logout</MenuItem>
+                    <MenuItem onClick={handleClose}>Inventory</MenuItem>
+                    <MenuItem onClick={handleClose}>Account Settings</MenuItem>
+                    <MenuItem onClick={handleClose, logout}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -90,6 +89,8 @@ export default function UserMenu() {
           )}
         </Popper>
       </div>
+      <p className='username'>Yilmaz</p>
     </div>
+    
   );
 }

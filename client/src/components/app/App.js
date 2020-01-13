@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, Suspense} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -125,6 +125,7 @@ export default function App() {
   }).then(response => {
     if (response.ok) {
       response.json().then(jsonVal=> {
+        handleLoadingFinished()
         if (jsonVal['isAuthenticated'])
           setAuthenticatedTrue();
         else
@@ -133,8 +134,7 @@ export default function App() {
     }
   }).catch(err => {
     console.log(err);
-  })
-    handleLoadingFinished();
+  });
   }, []);
 
   const Profile = () => {
@@ -144,7 +144,8 @@ export default function App() {
       else
         return <LoginButton view={setAuthenticatedTrue.bind(this)}/>
     }
-    return <span/>;
+    else
+      return null;
   }
 
 
@@ -177,6 +178,8 @@ export default function App() {
             </div>
             <div className={'profileFloat'}>
               <Profile/>
+              
+              
             </div>
           </div>
         </Toolbar>
