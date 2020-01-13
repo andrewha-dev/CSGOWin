@@ -32,7 +32,7 @@ module.exports = app => {
         user = await new User({
           steamId: profile._json.steamid,
           name: profile._json.personaname,
-          avatar: profile._json.avatar,
+          avatar: profile._json.avatarmedium,
           balance: 0,
           isAdmin: !admin ? false : true 
         }).save();

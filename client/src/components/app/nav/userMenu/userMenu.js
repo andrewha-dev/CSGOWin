@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar'
+import  { Context } from '../../../../store/store';
 
 import './userMenu.css'
 const useStyles = makeStyles(theme => ({
@@ -19,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UserMenu() {
+  const [state, dispatch] = React.useContext(Context);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -31,14 +33,14 @@ export default function UserMenu() {
     //Call API to log out user
     console.log("logout");
     localStorage.removeItem('authToken');
-    window.location = "./"
+    dispatch({Type: "LOGOUT", payload: null})
+    window.location = '/'
   }
 
   const handleClose = event => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -67,7 +69,7 @@ export default function UserMenu() {
       onClick={handleToggle}>
       <div>
       <div className='profileDiv'>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={(classes.large, 'profileDiv')} />
+        <Avatar alt="Profile" src={state.user.avatar} className={(classes.large, 'profileDiv')} />
       </div>
         
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
@@ -81,7 +83,7 @@ export default function UserMenu() {
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     <MenuItem onClick={handleClose}>Inventory</MenuItem>
                     <MenuItem onClick={handleClose}>Account Settings</MenuItem>
-                    <MenuItem onClick={handleClose, logout}>Logout</MenuItem>
+                    <MenuItem onClick={(handleClose, logout)}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -89,7 +91,7 @@ export default function UserMenu() {
           )}
         </Popper>
       </div>
-      <p className='username'>Yilmaz</p>
+      <p className='username'>{state.user.name}</p>
     </div>
     
   );

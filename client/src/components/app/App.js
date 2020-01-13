@@ -1,4 +1,4 @@
-import React, {useEffect, Suspense} from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -19,7 +19,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import LoginButton from './nav/login/loginButton';
 import UserMenu from './nav/userMenu/userMenu'
-
+import  { Context } from '../../store/store';
 import './app.css'
 
 
@@ -89,10 +89,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function App() {
   const isAuthorizedAPI = process.env.REACT_APP_API_URL + '/auth/isAuthenticated';
+
+  const [state, dispatch] = React.useContext(Context);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [authenticated, isAuthenticated] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const handleLoadingFinished = () => {
     setLoading(false);
@@ -106,12 +107,27 @@ export default function App() {
     setOpen(false);
   };
 
-  const setAuthenticated = (val) => {
-    isAuthenticated(val)
-  }
-
-  const setAuthenticatedTrue = () => {
-    isAuthenticated(true);
+  const checkSignIn = () => {
+    let authToken = localStorage.getItem('authToken');
+    fetch(isAuthorizedAPI, {
+      method: 'GET',
+      headers: {
+          'Authorization': authToken,
+          'Content-Type': 'application/json'
+      }
+  }).then(response => {
+    if (response.ok) {
+      response.json().then(jsonVal=> {
+        handleLoadingFinished()
+        console.log(jsonVal);
+        if (jsonVal['user']) {
+          dispatch({type: 'LOGIN', payload: jsonVal['user']})
+        }
+      })
+    }
+  }).catch(err => {
+    console.log(err);
+  })
   }
 
   useEffect(() => {
@@ -126,28 +142,25 @@ export default function App() {
     if (response.ok) {
       response.json().then(jsonVal=> {
         handleLoadingFinished()
-        if (jsonVal['isAuthenticated'])
-          setAuthenticatedTrue();
-        else
-          setAuthenticated(false);
+        if (jsonVal['user']) {
+          dispatch({type: 'LOGIN', payload: jsonVal['user']})
+        }
       })
     }
   }).catch(err => {
     console.log(err);
-  });
-  }, []);
+  });}, []);
 
   const Profile = () => {
     if (!loading) {
-      if (authenticated)
+      if (state.user)
         return <UserMenu/>
       else
-        return <LoginButton view={setAuthenticatedTrue.bind(this)}/>
+        return <LoginButton view={checkSignIn.bind(this)}/>
     }
     else
       return null;
   }
-
 
   return (
     <div className={classes.root}>

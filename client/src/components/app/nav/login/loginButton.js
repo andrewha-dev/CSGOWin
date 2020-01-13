@@ -32,13 +32,6 @@ class LoginButton extends Component {
       </div>
     );
   }
-
-// render() {
-//     return (
-//         <p>Test from home</p>
-//     )
-// }
-
 }
 
 export default LoginButton
